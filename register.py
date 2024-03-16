@@ -39,6 +39,8 @@ class Ui_registerWindow(object):
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_register_show.setFont(font)
+        self.label_register_show.setStyleSheet("background-color: rgb(0, 0, 0);\n"
+"color: rgb(255, 255, 255);")
         self.label_register_show.setAlignment(QtCore.Qt.AlignCenter)
         self.label_register_show.setObjectName("label_register_show")
         self.verticalLayout_2.addWidget(self.label_register_show)
