@@ -59,7 +59,7 @@ def register_start(self):
             text, ok_is_pressed = QInputDialog.getText(None,"请输入工号", "请准确输入您的工号:",  QLineEdit.Normal, "")
             if ok_is_pressed and text != '':
                 user_id = text
-                opened_file = open('./data/face_feature.csv', 'a', newline='')
+                opened_file = open('./data/face_feature.csv', 'a+', newline='')
                 csv_writer = csv.writer(opened_file)
                 cap = cv2.VideoCapture(0)
                 timer_register_show_pic.start(5)
@@ -198,7 +198,7 @@ def attendance_start():  # 考勤打卡
             QMessageBox.information(None, "成功", str(predict_name) + "打卡成功！",
                                     QMessageBox.Yes, QMessageBox.Yes)
             line = [predict_id, predict_name, face_time]
-            with open('./data/log_attendance.csv', 'a+') as f:
+            with open('./data/log_attendance.csv', 'a+', newline='') as f:
                 csv_writer = csv.writer(f)
                 csv_writer.writerow(line)  # 写入考勤表
     if predict_name == "FAILED":
