@@ -24,11 +24,11 @@ def get_data_list():
             csv_reader = csv.reader(f)
             for line in csv_reader:
                 # 重新加载数据
-                faceId = line[0]
-                userName = line[1]
+                face_id = line[0]
+                user_name = line[1]
                 face_descriptor = eval(line[2])
-                label_list.append(faceId)
-                name_list.append(userName)
+                label_list.append(face_id)
+                name_list.append(user_name)
                 # 转为numpy格式
                 face_descriptor = np.asarray(face_descriptor, dtype=np.float64)
                 # 转为二维矩阵，拼接
