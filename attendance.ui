@@ -118,7 +118,7 @@ color: rgb(255, 255, 255);</string>
              </property>
              <property name="icon">
               <iconset>
-               <normaloff>source/attendance_start.png</normaloff>source/attendance_start.png</iconset>
+               <normaloff>source/2.png</normaloff>source/2.png</iconset>
              </property>
              <property name="iconSize">
               <size>

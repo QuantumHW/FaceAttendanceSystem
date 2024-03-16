@@ -60,7 +60,7 @@ class Ui_attendanceWindow(object):
         self.button_attendance_start.setFont(font)
         self.button_attendance_start.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("source/attendance_start.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("source/2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_attendance_start.setIcon(icon)
         self.button_attendance_start.setIconSize(QtCore.QSize(40, 40))
         self.button_attendance_start.setObjectName("button_attendance_start")

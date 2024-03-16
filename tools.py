@@ -3,7 +3,7 @@ import csv
 
 
 # 返回DLIB格式的face
-def getDlibRect(face=None):
+def get_dlib_rect(face=None):
     l, t, r, b = None, None, None, None
     l = face[0]
     t = face[1]

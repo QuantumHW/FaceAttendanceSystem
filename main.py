@@ -3,6 +3,7 @@ import sys
 import time
 import dlib
 from tools import *
+import pandas as pd
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -10,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from menu import Ui_menuWindow
 from register import Ui_registerWindow
 from attendance import Ui_attendanceWindow
+from management import Ui_managementWindow
 
 _translate = QtCore.QCoreApplication.translate
 cap = cv2.VideoCapture(0)  # 全局摄像头
@@ -99,7 +101,7 @@ def register_show_pic():
                         # 写入
                         csv_writer.writerow(face_data_temp)
                         register_out_text(
-                            '人脸注册进度： {count}/{faceCount}，用户ID:{faceId}，用户姓名:{userName}'.format(
+                            '人脸注册进度:{count}/{faceCount}，用户ID:{faceId}，用户姓名:{userName}'.format(
                                 count=(count + 1),
                                 faceCount=faceCount,
                                 faceId=user_id,
@@ -170,7 +172,7 @@ def attendance_start():  # 考勤打卡
     face_time = time.strftime("%Y/%m/%d-%H:%M:%S")
     ui.label_time.setText(_translate("attendanceWindow", "时间：" + str(face_time)))
     for face in face_detection:
-        l, t, r, b = getDlibRect(face)
+        l, t, r, b = get_dlib_rect(face)
         face = dlib.rectangle(l, t, r, b)
         points = points_detector(frame, face)  # 识别68个关键点
         face_crop = frame[t:b, l:r]  # 人脸区域
@@ -208,6 +210,29 @@ def attendance_start():  # 考勤打卡
         QMessageBox.warning(None, "打卡失败", "未识别到合法人脸！",
                             QMessageBox.Yes, QMessageBox.Yes)
 
+
+def export_infor():
+    # 导出考勤表
+    filepath, type = QFileDialog.getSaveFileName(MainWindow, '导出考勤表',
+                                                 '/records', 'Excel表格(*.xlsx)')
+    if filepath:
+        try:
+            data_export = None
+            count_data = 0
+            with open('./data/log_attendance.csv', 'r') as f:
+                csv_reader = csv.reader(f)
+                rows_list = []  # 先使用列表，增加完数据后，再转回Dataframe，可提高效率
+                for index, line in enumerate(csv_reader):
+                    line.insert(0, str(index+1))
+                    rows_list.append(line)
+                    count_data = index+1
+                data_export = pd.DataFrame(rows_list, columns=['序号', '工号', '姓名', '打卡时间'])
+            data_export.to_excel(filepath, index=False)
+            QMessageBox.information(None, "完成", '共计'+str(count_data)+'条数据。\n已成功导出至：'+str(filepath),
+                                    QMessageBox.Yes, QMessageBox.Yes)
+        except Exception as e:
+            QMessageBox.critical(None, "失败", '发生错误，导出失败:'+str(e),
+                                    QMessageBox.Yes, QMessageBox.Yes)
 
 
 def back_menu():
@@ -249,7 +274,22 @@ def open_attendance():
 
 def open_management():
     # 打开信息管理界面
-    pass
+    global ui
+    ui = Ui_managementWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    ui.button_export.clicked.connect(export_infor)
+    ui.button_back.clicked.connect(back_menu)
+    ui.table_data.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+    with open('./data/log_attendance.csv', 'r') as f:
+        csv_reader = csv.reader(f)
+        for index, line in enumerate(csv_reader):
+            # 重新加载数据
+            row_count = ui.table_data.rowCount()  # 返回当前行数(尾部)
+            ui.table_data.insertRow(row_count) # 在尾部插入一行
+            ui.table_data.setItem(index, 0, QTableWidgetItem(line[0]))
+            ui.table_data.setItem(index, 1, QTableWidgetItem(line[1]))
+            ui.table_data.setItem(index, 2, QTableWidgetItem(line[2]))
 
 
 if __name__ == '__main__':

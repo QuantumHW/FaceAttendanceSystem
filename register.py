@@ -62,7 +62,7 @@ class Ui_registerWindow(object):
         self.button_register_start.setFont(font)
         self.button_register_start.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("source/start_registration.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("source/3.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_register_start.setIcon(icon)
         self.button_register_start.setIconSize(QtCore.QSize(30, 30))
         self.button_register_start.setObjectName("button_register_start")

@@ -63,7 +63,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>source/Information_entry.png</normaloff>source/Information_entry.png</iconset>
+          <normaloff>source/5.png</normaloff>source/5.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -90,7 +90,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>source/attendance.png</normaloff>source/attendance.png</iconset>
+          <normaloff>source/1.png</normaloff>source/1.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -115,7 +115,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>source/Information_management.png</normaloff>source/Information_management.png</iconset>
+          <normaloff>source/4.png</normaloff>source/4.png</iconset>
         </property>
         <property name="iconSize">
          <size>
